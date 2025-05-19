@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://1gh17yiv04nx"
+path="res://.godot/imported/Sword.wav-2b4ccf1dff033093acb5c0cc03de7fe4.sample"
+
+[deps]
+
+source_file="res://Assets/Temporal/Ninja Adventure - Asset Pack/Sounds/Game/Sword.wav"
+dest_files=["res://.godot/imported/Sword.wav-2b4ccf1dff033093acb5c0cc03de7fe4.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

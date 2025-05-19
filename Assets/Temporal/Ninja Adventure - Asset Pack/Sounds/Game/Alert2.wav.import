@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://cylymk24db5l0"
+path="res://.godot/imported/Alert2.wav-156090e5b800489a1e8323b0d26ef3cc.sample"
+
+[deps]
+
+source_file="res://Assets/Temporal/Ninja Adventure - Asset Pack/Sounds/Game/Alert2.wav"
+dest_files=["res://.godot/imported/Alert2.wav-156090e5b800489a1e8323b0d26ef3cc.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2
