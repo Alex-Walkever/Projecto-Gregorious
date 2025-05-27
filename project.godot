@@ -15,6 +15,10 @@ run/main_scene="uid://cmddxvwv8xtpl"
 config/features=PackedStringArray("4.4", "GL Compatibility")
 config/icon="res://icon.svg"
 
+[autoload]
+
+PlayerManager="*res://Scenes/Managers/Player/PlayerManager.tscn"
+
 [display]
 
 window/stretch/mode="canvas_items"
@@ -27,7 +31,8 @@ enabled=PackedStringArray()
 
 folder_colors={
 "res://Assets/": "green",
-"res://Scenes/": "purple"
+"res://Scenes/": "purple",
+"res://Scripts/": "red"
 }
 
 [input]
@@ -99,7 +104,9 @@ action_switch={
 2d_physics/layer_2="Player"
 2d_physics/layer_3="Enemies"
 2d_physics/layer_4="Objects"
-2d_physics/layer_5="Pro"
+2d_physics/layer_5="Projectile"
+2d_physics/layer_6="Hazard"
+2d_physics/layer_7="Plataform"
 
 [rendering]
 

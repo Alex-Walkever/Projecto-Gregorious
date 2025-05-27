@@ -1,14 +1,11 @@
-[gd_scene load_steps=25 format=3 uid="uid://bh1fh8a686d55"]
+[gd_scene load_steps=28 format=3 uid="uid://bh1fh8a686d55"]
 
 [ext_resource type="Texture2D" uid="uid://di6rwu5rbxxb8" path="res://Assets/Temporal/Ninja Adventure - Asset Pack/Actor/Characters/Boy/SeparateAnim/Jump.png" id="1_ft8w5"]
 [ext_resource type="Script" uid="uid://bh6ltguflhg47" path="res://Scenes/Player/player.gd" id="1_h54ih"]
 [ext_resource type="Texture2D" uid="uid://nrs3j6lwfr2k" path="res://Assets/Temporal/Ninja Adventure - Asset Pack/Actor/Characters/Boy/SeparateAnim/Walk.png" id="2_h54ih"]
 [ext_resource type="Texture2D" uid="uid://dr8uomw0kxyq7" path="res://Assets/Temporal/Ninja Adventure - Asset Pack/Actor/Characters/Boy/SpriteSheet.png" id="2_jmcll"]
 [ext_resource type="Texture2D" uid="uid://cw3msfcp1un2" path="res://Assets/Temporal/Ninja Adventure - Asset Pack/Actor/Characters/Boy/SeparateAnim/Idle.png" id="2_ude3g"]
-
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ude3g"]
-radius = 6.0
-height = 16.0
+[ext_resource type="Texture2D" uid="uid://dc2casloyfo21" path="res://Assets/Temporal/Ninja Adventure - Asset Pack/Actor/Characters/Boy/SeparateAnim/Special1.png" id="4_4wape"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_6tu5v"]
 atlas = ExtResource("2_jmcll")
@@ -16,6 +13,10 @@ region = Rect2(0, 96, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_esmjy"]
 atlas = ExtResource("2_ude3g")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0objx"]
+atlas = ExtResource("4_4wape")
 region = Rect2(0, 0, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_jmcll"]
@@ -82,6 +83,14 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_0objx")
+}],
+"loop": true,
+"name": &"dodge",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_jmcll")
 }],
 "loop": true,
@@ -139,6 +148,21 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="Animation" id="Animation_4wape"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+
 [sub_resource type="Animation" id="Animation_ude3g"]
 resource_name = "look_up"
 length = 0.5
@@ -171,21 +195,6 @@ tracks/0/keys = {
 "values": [Vector2(0, -70), Vector2(0, 0)]
 }
 
-[sub_resource type="Animation" id="Animation_4wape"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(0, 0)]
-}
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_t26db"]
 _data = {
 &"RESET": SubResource("Animation_4wape"),
@@ -193,19 +202,23 @@ _data = {
 &"reset": SubResource("Animation_jmcll")
 }
 
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ude3g"]
+radius = 6.0
+height = 16.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jmcll"]
+size = Vector2(10, 11)
+
 [node name="Player" type="CharacterBody2D"]
 collision_layer = 2
-collision_mask = 13
+collision_mask = 77
 script = ExtResource("1_h54ih")
 crouch_speed = 50.0
 max_jumps = 1
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("CapsuleShape2D_ude3g")
-
 [node name="PlayerAnimation2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_esmjy")
-animation = &"look_up"
+animation = &"dodge"
 autoplay = "default"
 
 [node name="Camera2D" type="Camera2D" parent="."]
@@ -217,3 +230,28 @@ root_node = NodePath("../Camera2D")
 libraries = {
 &"": SubResource("AnimationLibrary_t26db")
 }
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_ude3g")
+
+[node name="HitBoxArea" type="Area2D" parent="."]
+collision_layer = 2
+collision_mask = 52
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitBoxArea"]
+position = Vector2(0, 0.5)
+shape = SubResource("RectangleShape2D_jmcll")
+debug_color = Color(0.560726, 0.0773696, 0.0493482, 0.42)
+
+[node name="DodgeTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="DodgeCooldown" type="Timer" parent="."]
+one_shot = true
+
+[node name="CrounchDownPlataformTimer" type="Timer" parent="."]
+wait_time = 0.5
+one_shot = true
+
+[connection signal="timeout" from="DodgeTimer" to="." method="_on_dodge_timer_timeout"]
+[connection signal="timeout" from="CrounchDownPlataformTimer" to="." method="_on_crounch_down_plataform_timer_timeout"]
