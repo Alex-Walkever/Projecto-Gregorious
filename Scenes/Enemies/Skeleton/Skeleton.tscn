@@ -1,0 +1,107 @@
+[gd_scene load_steps=14 format=3 uid="uid://c3r66dh5o5j8e"]
+
+[ext_resource type="Script" uid="uid://bi8mwm3uf7s1n" path="res://Scenes/Enemies/Skeleton/skeleton.gd" id="1_dbbnm"]
+[ext_resource type="Texture2D" uid="uid://p1lq0k1nrk22" path="res://Assets/Temporal/Ninja Adventure - Asset Pack/Actor/Characters/Skeleton/SpriteSheet.png" id="1_ddsuk"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_dbbnm"]
+radius = 5.5
+height = 15.5
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8xdws"]
+atlas = ExtResource("1_ddsuk")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_54u0t"]
+atlas = ExtResource("1_ddsuk")
+region = Rect2(32, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8052u"]
+atlas = ExtResource("1_ddsuk")
+region = Rect2(32, 32, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xfnhs"]
+atlas = ExtResource("1_ddsuk")
+region = Rect2(32, 48, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fiebx"]
+atlas = ExtResource("1_ddsuk")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jfinf"]
+atlas = ExtResource("1_ddsuk")
+region = Rect2(48, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vhuqw"]
+atlas = ExtResource("1_ddsuk")
+region = Rect2(48, 32, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_e1ijp"]
+atlas = ExtResource("1_ddsuk")
+region = Rect2(48, 48, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_efq54"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8xdws")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_54u0t")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8052u")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xfnhs")
+}],
+"loop": true,
+"name": &"move_left",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fiebx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jfinf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vhuqw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_e1ijp")
+}],
+"loop": true,
+"name": &"move_right",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ddsuk"]
+radius = 119.567
+
+[node name="Skeleton" type="CharacterBody2D"]
+scale = Vector2(4, 4)
+collision_layer = 4
+collision_mask = 59
+script = ExtResource("1_dbbnm")
+speed = 50.0
+hit_points = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_dbbnm")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_efq54")
+animation = &"move_right"
+frame = 2
+frame_progress = 0.401337
+
+[node name="PlayerDectector" type="Area2D" parent="."]
+collision_layer = 4
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerDectector"]
+shape = SubResource("CircleShape2D_ddsuk")
+debug_color = Color(0.751499, 0.458221, 0.0290741, 0.42)
+
+[connection signal="body_entered" from="PlayerDectector" to="." method="_on_player_dectector_body_entered"]
