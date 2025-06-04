@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="ProGreg"
-run/main_scene="uid://cmddxvwv8xtpl"
+run/main_scene="uid://chnvabg73quqd"
 config/features=PackedStringArray("4.4", "GL Compatibility")
 config/icon="res://icon.svg"
 
@@ -34,6 +34,10 @@ folder_colors={
 "res://Scenes/": "purple",
 "res://Scripts/": "red"
 }
+
+[global_group]
+
+interactable="objects you can intract with"
 
 [input]
 

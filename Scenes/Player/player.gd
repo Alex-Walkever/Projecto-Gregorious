@@ -1,11 +1,14 @@
 extends CharacterBody2D
+class_name Player
 
 @export var speed: float = 300.0
+@export var run_speed: float = 700.0
 @export var crouch_speed: float = 150
 @export var jump_velocity: float = -400.0
 @export var max_jumps: int = 2
 @export var dodge_time: float = 0.3
 @export var dodge_cooldown: float = 1.0
+@export var limit_camera_tilemap: TileMapLayer
 
 var current_speed: float
 var last_direction: float
@@ -24,6 +27,8 @@ func _ready() -> void:
 
 func _physics_process(delta: float) -> void:
 	on_floor = is_on_floor()
+	if PlayerManager.amount_enemies_in_room <= 0:
+		current_speed = run_speed
 	if not is_dodge:
 		action_attack()
 		if not current_weapon.is_attacking:

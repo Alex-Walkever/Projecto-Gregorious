@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=3 uid="uid://bh1fh8a686d55"]
+[gd_scene load_steps=29 format=3 uid="uid://bh1fh8a686d55"]
 
 [ext_resource type="Texture2D" uid="uid://di6rwu5rbxxb8" path="res://Assets/Temporal/Ninja Adventure - Asset Pack/Actor/Characters/Boy/SeparateAnim/Jump.png" id="1_ft8w5"]
 [ext_resource type="Script" uid="uid://bh6ltguflhg47" path="res://Scenes/Player/player.gd" id="1_h54ih"]
@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://dr8uomw0kxyq7" path="res://Assets/Temporal/Ninja Adventure - Asset Pack/Actor/Characters/Boy/SpriteSheet.png" id="2_jmcll"]
 [ext_resource type="Texture2D" uid="uid://cw3msfcp1un2" path="res://Assets/Temporal/Ninja Adventure - Asset Pack/Actor/Characters/Boy/SeparateAnim/Idle.png" id="2_ude3g"]
 [ext_resource type="Texture2D" uid="uid://dc2casloyfo21" path="res://Assets/Temporal/Ninja Adventure - Asset Pack/Actor/Characters/Boy/SeparateAnim/Special1.png" id="4_4wape"]
+[ext_resource type="Script" uid="uid://l0niaj7p8sok" path="res://Scenes/Player/player_camera.gd" id="7_t26db"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_6tu5v"]
 atlas = ExtResource("2_jmcll")
@@ -210,6 +211,7 @@ height = 16.0
 size = Vector2(10, 11)
 
 [node name="Player" type="CharacterBody2D"]
+scale = Vector2(4, 4)
 collision_layer = 2
 collision_mask = 77
 script = ExtResource("1_h54ih")
@@ -218,15 +220,17 @@ max_jumps = 1
 
 [node name="PlayerAnimation2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_esmjy")
-animation = &"dodge"
+animation = &"look_up"
 autoplay = "default"
+frame_progress = 0.64067
 
-[node name="Camera2D" type="Camera2D" parent="."]
-zoom = Vector2(3, 3)
+[node name="PlayerCamera" type="Camera2D" parent="."]
+limit_smoothed = true
 position_smoothing_speed = 10.0
+script = ExtResource("7_t26db")
 
 [node name="CameraAnimation" type="AnimationPlayer" parent="."]
-root_node = NodePath("../Camera2D")
+root_node = NodePath("../PlayerCamera")
 libraries = {
 &"": SubResource("AnimationLibrary_t26db")
 }
